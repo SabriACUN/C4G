@@ -53,7 +53,6 @@ namespace StarterAssets
 
 		// cinemachine
 		private float _cinemachineTargetPitch;
-
 		// player
 		private float _speed;
 		private float _rotationVelocity;
@@ -167,7 +166,7 @@ namespace StarterAssets
 
 			float speedOffset = 0.1f;
 			float inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
-
+			
 			// accelerate or decelerate to target speed
 			if (currentHorizontalSpeed < targetSpeed - speedOffset || currentHorizontalSpeed > targetSpeed + speedOffset)
 			{
@@ -189,7 +188,9 @@ namespace StarterAssets
 			// note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
 			// if there is a move input rotate player when the player is moving
 			if (_input.move != Vector2.zero)
+				
 			{
+
 				// move
 				inputDirection = transform.right * _input.move.x + transform.forward * _input.move.y;
 			}
