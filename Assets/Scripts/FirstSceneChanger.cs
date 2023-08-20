@@ -14,6 +14,6 @@ public class FirstSceneChanger : MonoBehaviour
     public IEnumerator AnimationTimer()
     {
         yield return new WaitForSecondsRealtime(25);
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 }
