@@ -13,7 +13,7 @@ public class enemyAI : MonoBehaviour
     public GameObject crumbling;
 
     private int health = 3;
-    private bool isDeath; 
+    private bool isDeath;
     private NavMeshAgent agent;
     private Animator animator;
     private float nextAttackTime = 0f;
@@ -26,17 +26,22 @@ public class enemyAI : MonoBehaviour
 
     void Update()
     {
-
-        if(health <= 0 && !isDeath)
+        if (health <= 0 && !isDeath)
         {
             isDeath = true;
-            Instantiate(crumbling, transform.position,transform.rotation);
+            // Ölüm animasyonunu oynat
+            //animator.SetTrigger("Death");
+
+            // Crumbling objesini instantiate et
+            Instantiate(crumbling, transform.position, transform.rotation);
+
+            // Karakteri devre dýþý býrak
             gameObject.SetActive(false);
         }
 
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
-        // Oyuncu takip menzili içindeyse
+        // Oyuncu takip menzili içindeyse ve karakter ölmediyse
         if (distanceToPlayer <= followRange && !isDeath)
         {
             // Oyuncuya doðru ilerle
@@ -50,6 +55,11 @@ public class enemyAI : MonoBehaviour
                 nextAttackTime = Time.time + attackCooldown; // Saldýrý aralýðýný ayarla
             }
         }
+        else
+        {
+            // Oyuncu takip menzili dýþýndaysa, karakter yürüme animasyonunu oynat
+            animator.SetBool("IsWalking", true);
+        }
     }
 
     void Attack()
@@ -59,15 +69,11 @@ public class enemyAI : MonoBehaviour
         // Dikkat: Saldýrý hýzý ve hasar miktarýný ayarlamayý unutmayýn.
 
         // Saldýrý animasyonunu oynatmak için Animator'i kullanabilirsiniz.
-       animator.SetTrigger("Attack");
+        animator.SetTrigger("Attack");
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void takeDamage()
     {
-        if(other.gameObject.CompareTag("axe"))
-        {
-            health -= 1;
-        }
-
+        health -= 1;
     }
 }
