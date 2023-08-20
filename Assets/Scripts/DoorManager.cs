@@ -11,7 +11,7 @@ public class DoorManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("FBI Open the Door");
+        //Debug.Log("FBI Open the Door");
         isDoorOpen = true;
     }
 
