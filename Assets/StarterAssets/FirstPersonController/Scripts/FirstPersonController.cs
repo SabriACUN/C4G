@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using UnityEditor;
+using System.Collections;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 #endif
@@ -63,6 +65,10 @@ namespace StarterAssets
 		private float _jumpTimeoutDelta;
 		private float _fallTimeoutDelta;
 
+		//for footstep
+		private bool canStep = true;
+		private float walkSpeed;
+		private AudioSource _audio;
 	
 #if ENABLE_INPUT_SYSTEM
 		private PlayerInput _playerInput;
@@ -87,6 +93,7 @@ namespace StarterAssets
 
 		private void Awake()
 		{
+			_audio = GetComponent<AudioSource>();
 			// get a reference to our main camera
 			if (_mainCamera == null)
 			{
@@ -114,8 +121,23 @@ namespace StarterAssets
 			JumpAndGravity();
 			GroundedCheck();
 			Move();
-		}
+			if (_input.move.magnitude >= 1 && Grounded && canStep)
+				StartCoroutine(footstep());
+			if (_input.sprint) walkSpeed = 0.20f;
+			else walkSpeed = 0.36f;
 
+		}
+		IEnumerator footstep()
+        {
+
+			canStep = false;
+
+			_audio.pitch = Random.Range(0.8f, 1.5f);
+			_audio.PlayOneShot(_audio.clip);
+			yield return new WaitForSeconds(walkSpeed);
+			canStep = true;
+			yield return null;
+        }
 		private void LateUpdate()
 		{
 			CameraRotation();
