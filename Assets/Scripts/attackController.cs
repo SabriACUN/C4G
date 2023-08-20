@@ -16,10 +16,13 @@ public class attackController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //if (anim.GetCurrentAnimatorStateInfo(0).IsName("firstAttack") && anim.GetCurrentAnimatorStateInfo(0).IsName("secondAttack")) return;
+
         if (Input.GetKeyDown(KeyCode.Mouse0) && canAttack)
         {
+
             canAttack = false;
-            anim.Play("firstAttack");
+            anim.SetBool("first", true);
 
             // Raycast'i çýkart
             StartCoroutine(attack());
@@ -27,7 +30,8 @@ public class attackController : MonoBehaviour
         }
         else if(Input.GetKeyDown(KeyCode.Mouse0) && canAttack == false)
         {
-            anim.Play("secondAttack");
+            if (anim.GetCurrentAnimatorStateInfo(0).IsName("secondAttack")) return;
+            anim.SetBool("second", true);
             StartCoroutine(attack());
             StartCoroutine(delayy());
         }
@@ -46,8 +50,10 @@ public class attackController : MonoBehaviour
 
     IEnumerator delayy()
     {
-        yield return new WaitForSeconds(2f);
-        anim.Play("idle");
+        yield return new WaitForSeconds(1f);
+        anim.SetBool("first", false);
+        anim.SetBool("second", false);
+
         canAttack = true;
         yield return null;
     }
