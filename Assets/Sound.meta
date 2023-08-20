@@ -1,5 +1,17 @@
 fileFormatVersion: 2
+<<<<<<< Updated upstream
+<<<<<<<< Updated upstream:Assets/Sound.meta
 guid: 0fb22cd455bfc474f81642c6f1acd30f
+========
+guid: 0287410103bbcf2448a26d7a83d6f377
+>>>>>>>> Stashed changes:Assets/Sound/Effect.meta
+=======
+<<<<<<<< HEAD:Assets/fonts.meta
+guid: 8791f66e87c7f3d40832870f4f018a8a
+========
+guid: 0fb22cd455bfc474f81642c6f1acd30f
+>>>>>>>> a12495111c8346848df017b4401c81e81067e465:Assets/Sound.meta
+>>>>>>> Stashed changes
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
