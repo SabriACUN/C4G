@@ -10,6 +10,7 @@ public class enemyAI : MonoBehaviour
     public float followRange = 10f; // Takip menzili
     public float attackRange = 2f; // Saldýrý menzili
     public float attackCooldown = 2f; // Saldýrý aralýðý
+    public GameObject crumbling;
 
     private int health = 3;
     private bool isDeath; 
@@ -26,10 +27,11 @@ public class enemyAI : MonoBehaviour
     void Update()
     {
 
-        if(health <= 0)
+        if(health <= 0 && !isDeath)
         {
             isDeath = true;
-            Destroy(gameObject);
+            Instantiate(crumbling, transform.position,transform.rotation);
+            gameObject.SetActive(false);
         }
 
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
